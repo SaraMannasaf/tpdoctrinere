@@ -28,20 +28,25 @@ class Review
     private $rating;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="date", nullable=true)
      */
-    private $created_at;
+    private $createdat;
 
     /**
      * @ORM\ManyToOne(targetEntity=restaurant::class, inversedBy="reviews")
      */
-    private $restaurant_id;
+    private $restaurantid;
 
     /**
      * @ORM\ManyToOne(targetEntity=user::class, inversedBy="reviews")
      */
-    private $user_id;
+    private $userid;
 
+    public function __construct()
+    {
+        $this->createdAt= new \DateTime('now');
+    }
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -71,39 +76,40 @@ class Review
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedat(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdat;
     }
 
-    public function setCreatedAt(?\DateTimeInterface $created_at): self
+    public function setCreatedat(?\DateTimeInterface $createdat): self
     {
-        $this->created_at = $created_at;
+        $this->createdat = $createdat;
 
         return $this;
     }
 
-    public function getRestaurantId(): ?restaurant
+    public function getRestaurantid(): ?restaurant
     {
-        return $this->restaurant_id;
+        return $this->restaurantid;
     }
 
-    public function setRestaurantId(?restaurant $restaurant_id): self
+    public function setRestaurantid(?restaurant $restaurantid): self
     {
-        $this->restaurant_id = $restaurant_id;
+        $this->restaurantid = $restaurantid;
 
         return $this;
     }
 
-    public function getUserId(): ?user
+    public function getUserid(): ?user
     {
-        return $this->user_id;
+        return $this->userid;
     }
 
-    public function setUserId(?user $user_id): self
+    public function setUserid(?user $userid): self
     {
-        $this->user_id = $user_id;
+        $this->userid = $userid;
 
         return $this;
     }
+
 }

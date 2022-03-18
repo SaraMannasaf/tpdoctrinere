@@ -30,18 +30,31 @@ class Restaurant
     private $description;
 
     /**
-     * @ORM\Column(type="date", nullable=true)
+     * @ORM\ManyToOne(targetEntity=city::class, inversedBy="restaurants")
      */
-    private $created_at;
+    private $cityid;
 
     /**
-     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="restaurant_id")
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $createdat;
+
+    /**
+     * @ORM\OneToMany(targetEntity=RestaurantPicture::class, mappedBy="restaurantid")
+     */
+    private $restaurantPictures;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="restaurantid")
      */
     private $reviews;
 
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
+        $this->restaurantPictures = new ArrayCollection();
+        $this->createdAt= new \DateTime('now');
+
     }
 
     public function getId(): ?int
@@ -73,14 +86,56 @@ class Restaurant
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCityid(): ?city
     {
-        return $this->created_at;
+        return $this->cityid;
     }
 
-    public function setCreatedAt(?\DateTimeInterface $created_at): self
+    public function setCityid(?city $cityid): self
     {
-        $this->created_at = $created_at;
+        $this->cityid = $cityid;
+
+        return $this;
+    }
+
+    public function getCreatedat(): ?\DateTimeInterface
+    {
+        return $this->createdat;
+    }
+
+    public function setCreatedat(?\DateTimeInterface $createdat): self
+    {
+        $this->createdat = $createdat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, RestaurantPicture>
+     */
+    public function getRestaurantPictures(): Collection
+    {
+        return $this->restaurantPictures;
+    }
+
+    public function addRestaurantPicture(RestaurantPicture $restaurantPicture): self
+    {
+        if (!$this->restaurantPictures->contains($restaurantPicture)) {
+            $this->restaurantPictures[] = $restaurantPicture;
+            $restaurantPicture->setRestaurantid($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRestaurantPicture(RestaurantPicture $restaurantPicture): self
+    {
+        if ($this->restaurantPictures->removeElement($restaurantPicture)) {
+            // set the owning side to null (unless already changed)
+            if ($restaurantPicture->getRestaurantid() === $this) {
+                $restaurantPicture->setRestaurantid(null);
+            }
+        }
 
         return $this;
     }
@@ -97,7 +152,7 @@ class Restaurant
     {
         if (!$this->reviews->contains($review)) {
             $this->reviews[] = $review;
-            $review->setRestaurantId($this);
+            $review->setRestaurantid($this);
         }
 
         return $this;
@@ -107,8 +162,8 @@ class Restaurant
     {
         if ($this->reviews->removeElement($review)) {
             // set the owning side to null (unless already changed)
-            if ($review->getRestaurantId() === $this) {
-                $review->setRestaurantId(null);
+            if ($review->getRestaurantid() === $this) {
+                $review->setRestaurantid(null);
             }
         }
 

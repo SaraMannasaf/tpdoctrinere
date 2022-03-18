@@ -32,10 +32,10 @@ class User
     /**
      * @ORM\ManyToOne(targetEntity=city::class, inversedBy="users")
      */
-    private $city_id;
+    private $cityid;
 
     /**
-     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="userid")
      */
     private $reviews;
 
@@ -73,14 +73,14 @@ class User
         return $this;
     }
 
-    public function getCityId(): ?city
+    public function getCityid(): ?city
     {
-        return $this->city_id;
+        return $this->cityid;
     }
 
-    public function setCityId(?city $city_id): self
+    public function setCityid(?city $cityid): self
     {
-        $this->city_id = $city_id;
+        $this->cityid = $cityid;
 
         return $this;
     }
@@ -97,7 +97,7 @@ class User
     {
         if (!$this->reviews->contains($review)) {
             $this->reviews[] = $review;
-            $review->setUserId($this);
+            $review->setUserid($this);
         }
 
         return $this;
@@ -107,8 +107,8 @@ class User
     {
         if ($this->reviews->removeElement($review)) {
             // set the owning side to null (unless already changed)
-            if ($review->getUserId() === $this) {
-                $review->setUserId(null);
+            if ($review->getUserid() === $this) {
+                $review->setUserid(null);
             }
         }
 

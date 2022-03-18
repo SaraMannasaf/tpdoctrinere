@@ -30,14 +30,16 @@ class City
     private $zipcode;
 
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="city_id")
+     * @ORM\OneToMany(targetEntity=Restaurant::class, mappedBy="cityid")
+     */
+    private $restaurants;
+
+    /**
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="cityid")
      */
     private $users;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Resaurant::class, mappedBy="city_id")
-     */
-    private $restaurants;
+    
 
     public function __construct()
     {
@@ -75,6 +77,36 @@ class City
     }
 
     /**
+     * @return Collection<int, Restaurant>
+     */
+    public function getRestaurants(): Collection
+    {
+        return $this->restaurants;
+    }
+
+    public function addRestaurant(Restaurant $restaurant): self
+    {
+        if (!$this->restaurants->contains($restaurant)) {
+            $this->restaurants[] = $restaurant;
+            $restaurant->setCityid($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRestaurant(Restaurant $restaurant): self
+    {
+        if ($this->restaurants->removeElement($restaurant)) {
+            // set the owning side to null (unless already changed)
+            if ($restaurant->getCityid() === $this) {
+                $restaurant->setCityid(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * @return Collection<int, User>
      */
     public function getUsers(): Collection
@@ -86,7 +118,7 @@ class City
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
-            $user->setCityId($this);
+            $user->setCityid($this);
         }
 
         return $this;
@@ -96,41 +128,11 @@ class City
     {
         if ($this->users->removeElement($user)) {
             // set the owning side to null (unless already changed)
-            if ($user->getCityId() === $this) {
-                $user->setCityId(null);
+            if ($user->getCityid() === $this) {
+                $user->setCityid(null);
             }
         }
 
         return $this;
-    }
-
-    /**
-     * @return Collection<int, Resaurant>
-     */
-    public function getRestaurants(): Collection
-    {
-        return $this->restaurants;
-    }
-
-    public function addRestaurant(Resaurant $restaurant): self
-    {
-        if (!$this->restaurants->contains($restaurant)) {
-            $this->restaurants[] = $restaurant;
-            $restaurant->setCityId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRestaurant(Resaurant $restaurant): self
-    {
-        if ($this->restaurants->removeElement($restaurant)) {
-            // set the owning side to null (unless already changed)
-            if ($restaurant->getCityId() === $this) {
-                $restaurant->setCityId(null);
-            }
-        }
-
-        return $this;
-    }
+    } 
 }
