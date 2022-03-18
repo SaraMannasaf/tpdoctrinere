@@ -20,7 +20,15 @@ final class Version20220318085437 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE city (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) DEFAULT NULL, zipcode VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql(file_get_contents("scripts/city.sql"));
+        $this->addSql(file_get_contents("scripts/User.sql"));
+        $this->addSql(file_get_contents("scripts/restaurant.sql"));
+        $this->addSql(file_get_contents("scripts/Review.sql"));
+        $this->addSql(file_get_contents("scripts/restaurantpicture.sql"));
+
+
+        
+        /*$this->addSql('CREATE TABLE city (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) DEFAULT NULL, zipcode VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE restaurant (id INT AUTO_INCREMENT NOT NULL, cityid_id INT DEFAULT NULL, name VARCHAR(255) DEFAULT NULL, description LONGTEXT DEFAULT NULL, createdat DATE DEFAULT NULL, INDEX IDX_EB95123FC12FD324 (cityid_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE restaurant_picture (id INT AUTO_INCREMENT NOT NULL, restaurantid_id INT DEFAULT NULL, filename VARCHAR(255) DEFAULT NULL, INDEX IDX_DC9013FCE0777E28 (restaurantid_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE review (id INT AUTO_INCREMENT NOT NULL, restaurantid_id INT DEFAULT NULL, userid_id INT DEFAULT NULL, message LONGTEXT DEFAULT NULL, rating INT DEFAULT NULL, createdat DATE DEFAULT NULL, INDEX IDX_794381C6E0777E28 (restaurantid_id), INDEX IDX_794381C658E0A285 (userid_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -31,7 +39,7 @@ final class Version20220318085437 extends AbstractMigration
         $this->addSql('ALTER TABLE review ADD CONSTRAINT FK_794381C6E0777E28 FOREIGN KEY (restaurantid_id) REFERENCES restaurant (id)');
         $this->addSql('ALTER TABLE review ADD CONSTRAINT FK_794381C658E0A285 FOREIGN KEY (userid_id) REFERENCES user (id)');
         $this->addSql('ALTER TABLE user ADD CONSTRAINT FK_8D93D649C12FD324 FOREIGN KEY (cityid_id) REFERENCES city (id)');
-    }
+    */}
 
     public function down(Schema $schema): void
     {
