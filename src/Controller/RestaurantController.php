@@ -20,4 +20,15 @@ class RestaurantController extends AbstractController
             'restaurants' => $restaurants,
         ]);
     }
+    /**
+     * @Route("/restaurant/new", name="app_restaurant2")
+     */
+    public function new()
+    {
+        $res= $this->getDoctrine()->getRepository(Restaurant::class)->findOneBy([],['createdat' => 'desc']);
+
+        return $this->render('restaurant/new.html.twig', [
+            'restaurant' => $res,
+        ]);
+    }
 }
