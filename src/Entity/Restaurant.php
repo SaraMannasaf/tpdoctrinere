@@ -30,7 +30,7 @@ class Restaurant
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity=city::class, inversedBy="restaurants")
+     * @ORM\ManyToOne(targetEntity="App\Entity\City", inversedBy="restaurants")
      */
     private $cityid;
 

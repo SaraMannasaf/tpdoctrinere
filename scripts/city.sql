@@ -1,4 +1,4 @@
-INSERT INTO `city` (`id`, `name`, `zipcode`) VALUES
+INSERT INTO `city` (`id`,`name`,`zipcode`) VALUES
 (1, 'city 1', 'zipcode 1'),
 (2, 'city 2', 'zipcode 2'),
 (3, 'city 3', 'zipcode 3'),
