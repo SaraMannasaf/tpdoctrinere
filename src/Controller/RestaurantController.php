@@ -82,4 +82,15 @@ class RestaurantController extends AbstractController
             'restaurant' => $res,
         ]);
     }
+    /**
+     * @Route("/requete/", name="")
+     */
+    public function restaurantderniers()
+    {
+        $restaurants = $this->getDoctrine()->getRepository(Restaurant::class)->findbydate(6);
+        
+        return $this->render('restaurant/index.html.twig', [
+            'restaurants' => $restaurants,
+        ]);
+    }
 }
