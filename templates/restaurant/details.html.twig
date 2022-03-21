@@ -6,5 +6,8 @@
     <h1>Liste des restaurants</h1>
     {% for restaurant in restaurants %}
         <div>{{ restaurant.name }}</div>
+        <div>{{ restaurant.description }}</div>
+        <div>{{ restaurant.createdat|date('Y-m-d') }}</div>
+        <div>{{ restaurant.cityid.name}}</div>
     {% endfor %}
 {% endblock %}

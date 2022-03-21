@@ -123,7 +123,7 @@ class RestaurantController extends AbstractController
     public function restaudetails()
     {
         $restaurants = $this->getDoctrine()->getRepository(Restaurant::class)->restaudetaills();
-        dd($restaurants);
+       
         
         return $this->render('restaurant/details.html.twig', [
             'restaurants' => $restaurants,
