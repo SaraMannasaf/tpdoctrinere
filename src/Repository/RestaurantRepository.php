@@ -59,7 +59,7 @@ class RestaurantRepository extends ServiceEntityRepository
         // returns an array of Product objects
         return $query->getResult();
     }
-    public function restaurantrating(): array
+    public function restaurantrating($id): array
     {
         $entityManager = $this->getEntityManager();
 
@@ -67,8 +67,24 @@ class RestaurantRepository extends ServiceEntityRepository
             'SELECT avg(r.rating)
             FROM App\Entity\Restaurant re ,
             App\Entity\review r where r.restaurantid = re.id
-            AND re.id = 1 GROUP BY re.id'
-        );
+            AND re.id = :id GROUP BY re.id'
+        )->setParameter('id', $id);;
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
+    public function topthree($limit): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT re.name
+            FROM App\Entity\Restaurant re ,
+            App\Entity\review r where r.restaurantid = re.id
+            GROUP BY re.id
+            ORDER BY avg(r.rating) DESC '
+            
+        )->setMaxResults($limit);;
 
         // returns an array of Product objects
         return $query->getResult();

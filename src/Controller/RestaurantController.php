@@ -98,10 +98,22 @@ class RestaurantController extends AbstractController
      */
     public function restaurantrating(Restaurant $id)
     {
-        $avg = $this->getDoctrine()->getRepository(Restaurant::class)->restaurantrating();
+        $avg = $this->getDoctrine()->getRepository(Restaurant::class)->restaurantrating($id);
 
         return $this->render('restaurant/avg.html.twig', [
             'avg' => $avg[0][1],
+        ]);
+    }
+    /**
+     * @Route("/topthree/", name="top")
+     */
+
+     public function Topthree()
+    {
+        $restaurants = $this->getDoctrine()->getRepository(Restaurant::class)->topthree(3);
+        
+        return $this->render('restaurant/index.html.twig', [
+            'restaurants' => $restaurants,
         ]);
     }
 }
