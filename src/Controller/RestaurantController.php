@@ -70,4 +70,16 @@ class RestaurantController extends AbstractController
 
         return $this->render('restaurant/add.html.twig');
     }
+    /**
+     * @Route("/restaurant/{restaurant}", name="app_restaurant5")
+     */
+    public function restaurant(Restaurant $restaurant,ManagerRegistry $doctrine)
+    {
+        $res = $doctrine->getRepository(Restaurant::class)->find($restaurant);
+
+        return $this->render('restaurant/search.html.twig',
+        [
+            'restaurant' => $res,
+        ]);
+    }
 }
