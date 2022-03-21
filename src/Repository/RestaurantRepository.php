@@ -89,6 +89,37 @@ class RestaurantRepository extends ServiceEntityRepository
         // returns an array of Product objects
         return $query->getResult();
     }
+    public function restaudetaills(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT re
+            FROM App\Entity\Restaurant re ,App\Entity\City c,
+            App\Entity\review r where r.restaurantid = re.id
+            AND c.id = re.cityid
+            '
+        );
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
+    public function top(): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT re.name
+            FROM App\Entity\Restaurant re ,
+            App\Entity\review r where r.restaurantid = re.id
+            GROUP BY re.id
+            ORDER BY avg(r.rating) DESC '
+            
+        );
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
     // /**
     //  * @return Restaurant[] Returns an array of Restaurant objects
     //  */

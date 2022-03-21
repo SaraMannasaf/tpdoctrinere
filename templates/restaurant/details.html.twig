@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des restaurants{% endblock %}
+
+{% block body %}
+    <h1>Liste des restaurants</h1>
+    {% for restaurant in restaurants %}
+        <div>{{ restaurant.name }}</div>
+    {% endfor %}
+{% endblock %}

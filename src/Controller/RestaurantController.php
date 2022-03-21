@@ -116,4 +116,29 @@ class RestaurantController extends AbstractController
             'restaurants' => $restaurants,
         ]);
     }
+    /**
+     * @Route("/restaudetails/", name="top")
+     */
+
+    public function restaudetails()
+    {
+        $restaurants = $this->getDoctrine()->getRepository(Restaurant::class)->restaudetaills();
+        dd($restaurants);
+        
+        return $this->render('restaurant/details.html.twig', [
+            'restaurants' => $restaurants,
+        ]);
+    }
+    /**
+     * @Route("/top/", name="topp")
+     */
+
+    public function Top()
+    {
+        $restaurants = $this->getDoctrine()->getRepository(Restaurant::class)->top();
+        
+        return $this->render('restaurant/index.html.twig', [
+            'restaurants' => $restaurants,
+        ]);
+    }
 }
