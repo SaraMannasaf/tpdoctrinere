@@ -59,7 +59,20 @@ class RestaurantRepository extends ServiceEntityRepository
         // returns an array of Product objects
         return $query->getResult();
     }
+    public function restaurantrating(): array
+    {
+        $entityManager = $this->getEntityManager();
 
+        $query = $entityManager->createQuery(
+            'SELECT avg(r.rating)
+            FROM App\Entity\Restaurant re ,
+            App\Entity\review r where r.restaurantid = re.id
+            AND re.id = 1 GROUP BY re.id'
+        );
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
     // /**
     //  * @return Restaurant[] Returns an array of Restaurant objects
     //  */

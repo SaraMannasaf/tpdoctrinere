@@ -83,7 +83,7 @@ class RestaurantController extends AbstractController
         ]);
     }
     /**
-     * @Route("/requete/", name="")
+     * @Route("/requete/", name="requete")
      */
     public function restaurantderniers()
     {
@@ -91,6 +91,17 @@ class RestaurantController extends AbstractController
         
         return $this->render('restaurant/index.html.twig', [
             'restaurants' => $restaurants,
+        ]);
+    }
+    /**
+     * @Route("/requete/{id}", name="requeteid")
+     */
+    public function restaurantrating(Restaurant $id)
+    {
+        $avg = $this->getDoctrine()->getRepository(Restaurant::class)->restaurantrating();
+
+        return $this->render('restaurant/avg.html.twig', [
+            'avg' => $avg[0][1],
         ]);
     }
 }
