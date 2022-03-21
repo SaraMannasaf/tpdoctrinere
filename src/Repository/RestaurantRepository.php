@@ -52,7 +52,7 @@ class RestaurantRepository extends ServiceEntityRepository
         $query = $entityManager->createQuery(
             'SELECT R
             FROM App\Entity\Restaurant R
-            ORDER BY R.createdat DESC 
+            ORDER BY R.createdat DESC
             '
         )->setMaxResults($limit);
 

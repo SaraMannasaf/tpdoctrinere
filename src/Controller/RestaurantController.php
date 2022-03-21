@@ -94,6 +94,18 @@ class RestaurantController extends AbstractController
         ]);
     }
     /**
+     * @Route("/topthree/", name="topp")
+     */
+
+    public function Topthree()
+    {
+        $restaurants = $this->getDoctrine()->getRepository(Restaurant::class)->topthree(3);
+        
+        return $this->render('restaurant/index.html.twig', [
+            'restaurants' => $restaurants,
+        ]);
+    }
+    /**
      * @Route("/requete/{id}", name="requeteid")
      */
     public function restaurantrating(Restaurant $id)
@@ -104,18 +116,7 @@ class RestaurantController extends AbstractController
             'avg' => $avg[0][1],
         ]);
     }
-    /**
-     * @Route("/topthree/", name="top")
-     */
-
-     public function Topthree()
-    {
-        $restaurants = $this->getDoctrine()->getRepository(Restaurant::class)->topthree(3);
-        
-        return $this->render('restaurant/index.html.twig', [
-            'restaurants' => $restaurants,
-        ]);
-    }
+    
     /**
      * @Route("/restaudetails/", name="top")
      */
