@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<form method="post" action="{{ path('app_restaurant4') }}">
+<input type="number" id="n1" name="id" placeholder="city_id">
+<input type="text" id="n2" name="name" placeholder="name">
+<input type="text" id="n3" name="desc" placeholder="description">
+<input type="date" id="n4" name="datecreat" placeholder="date de création">
+
+<button type="submit" name="submit">Ok</button>
+</form>
+{% endblock %}
